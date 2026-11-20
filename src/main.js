@@ -1,14 +1,47 @@
 import * as THREE from 'three';
+import { Pane } from 'tweakpane';
 
 const global = {}
 
 function main() {
-	createScene();
+	setupPane();
+	setupScene();
 
 	createMesh();
 }
 
-function createScene() {
+function setupPane() {
+	const pane = new Pane({
+		title: 'Config',
+		expanded: true,
+	});
+	global.config = {
+		planeRotation: {
+			x: 0,
+			y: 0,
+		},
+	};
+
+	const backgroundPlane = pane.addFolder({
+		title: 'Background Plane'
+	})
+
+	global.pane = {};
+	global.pane.planeRotation = backgroundPlane.addBinding(global.config, 'planeRotation', {
+		label: 'Rotation',
+		view: 'slider',
+		x: {
+			min: 0,
+			max: 90,
+		},
+		y: {
+			min: 0,
+			max: 45,
+		},
+	})
+}
+
+function setupScene() {
 	const backgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--background-color').trim();
 
 	global.scene = new THREE.Scene();
@@ -24,11 +57,11 @@ function createScene() {
 
 function createMesh() {
 	const resolution = 10;
-	const size = 5;
+	const size = 8;
 
 	const geometry = new THREE.BufferGeometry();
 	const material = new THREE.MeshBasicMaterial({
-		color: 0x00ff00,
+		color: 0x7f7f7f,
 		wireframe: true,
 	});
 
@@ -60,6 +93,11 @@ function createMesh() {
 
 	const plane = new THREE.Mesh(geometry, material);
 	global.scene.add(plane);
+
+	const radians = 1 / 180 * Math.PI;
+	global.pane.planeRotation.on('change', (p) => {
+		plane.setRotationFromEuler(new THREE.Euler(p.value.x * radians, -p.value.y * radians, 0))
+	});
 }
 
 function animate(time) {
