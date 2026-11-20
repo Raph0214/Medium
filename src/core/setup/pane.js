@@ -2,7 +2,9 @@ import * as THREE from 'three';
 import { Pane } from 'tweakpane';
 import { global } from "../global";
 import { config } from '../config';
+import { resize } from './scene';
 import { createMesh } from '../create/mesh';
+import { step } from 'three/tsl';
 
 export function setupPane() {
 	const pane = new Pane({
@@ -10,19 +12,32 @@ export function setupPane() {
 		expanded: true,
 	});
 
+	global.pane = {};
+
+	camera(pane);
 	backgroundPlane(pane);
 	statistics(pane);
+}
+
+function camera(pane) {
+	const camera = pane.addFolder({ title: 'Camera' });
+
+	global.pane.scale = camera.addBinding(config.camera, 'scale', {
+		label: 'Scale',
+		min: 1,
+		step: 0.1,
+	});
+	global.pane.scale.on('change', resize);
 }
 
 const radians = 1 / 180 * Math.PI;
 function backgroundPlane(pane) {
 	const backgroundPlane = pane.addFolder({ title: 'Background Plane' });
 
-	global.pane = {};
 	global.pane.size = backgroundPlane.addBinding(config.backgroundPlane, 'size', {
 		label: 'Size',
 		min: 1,
-		step: 1,
+		step: 0.1,
 	});
 	global.pane.size.on('change', createMesh);
 
@@ -53,11 +68,41 @@ function backgroundPlane(pane) {
 		global.plane.setRotationFromEuler(new THREE.Euler(ev.value.x * radians, -ev.value.y * radians, 0))
 	});
 
-	noise(pane, backgroundPlane);
+	noise(backgroundPlane);
 }
 
-function noise(pane, backgroundPlane) {
-	const noise = backgroundPlane.addFolder({ title: 'Noise' });
+function noise(pane) {
+	const noise = pane.addFolder({ title: 'Noise' });
+
+	global.pane.speed = noise.addBinding(config.noise, 'speed', {
+		label: 'Speed',
+		min: 0,
+		step: 0.1,
+	});
+
+	global.pane.amplitude = noise.addBinding(config.noise, 'amplitude', {
+		label: 'Amplitude',
+		min: 0,
+		step: 0.1,
+	});
+	global.pane.amplitude.on('change', (ev) => {
+		global.material.uniforms.uAmplitude.value = ev.value;
+	})
+
+	global.pane.frequency = noise.addBinding(config.noise, 'frequency', {
+		label: 'Frequency',
+		x: {
+			min: 0,
+			max: 10,
+		},
+		y: {
+			min: 0,
+			max: 10,
+		},
+	});
+	global.pane.frequency.on('change', (ev) => {
+		global.material.uniforms.uFrequency.value = new THREE.Vector2(ev.value.x, ev.value.y);
+	})
 }
 
 function statistics(pane) {

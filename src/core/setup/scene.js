@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { global } from "../global";
+import { config } from '../config';
 
 export function setupScene() {
 	const style = getComputedStyle(document.documentElement)
@@ -44,8 +45,8 @@ function fps() {
 }
 
 window.addEventListener('resize', resize);
-function resize() {
-	const scale = 10;
+export function resize() {
+	const scale = config.camera.scale;
 
 	const width = window.innerWidth;
 	const height = window.innerHeight;
