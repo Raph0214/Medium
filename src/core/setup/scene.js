@@ -19,11 +19,28 @@ export function setupScene() {
 }
 
 function animate(time) {
-	global.animations.forEach(animation => {
+	for (const [key, animation] of Object.entries(global.animations)) {
+		if (!animation) return;
+
 		animation(time);
-	});
+	}
 
 	global.renderer.render(global.scene, global.camera);
+
+	fps();
+}
+
+let frames = 0;
+let prevTime = performance.now();
+function fps() {
+	frames++;
+
+	const curTime = performance.now();
+
+	global.pane.fps.value = Math.round((frames * 1000) / (curTime - prevTime));
+
+	frames = 0;
+	prevTime = curTime;
 }
 
 window.addEventListener('resize', resize);

@@ -1,11 +1,11 @@
 export const config = {
 	backgroundPlane: {
-		size: 8,
-		resolution: 10,
-		wireframe: false,
+		size: 10,
+		resolution: 100,
+		wireframe: true,
 		rotation: {
-			x: 0,
-			y: 0,
+			x: 45,
+			y: 11.25,
 		},
 	},
 };
