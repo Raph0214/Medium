@@ -5,20 +5,20 @@ export const config = {
 	backgroundPlane: {
 		size: {
 			x: 6,
-			y: 24,
+			y: 15,
 		},
-		resolution: 200,
+		resolution: 20,
 		wireframe: false,
 		rotation: {
-			x: 70,
+			x: 60,
 			y: 20,
 		},
 	},
 	wave: {
 		speed: 2.5,
-		amplitude: 1,
+		amplitude: 1.5,
 		frequency: {
-			x: 0.625,
+			x: 0.5,
 			y: 1,
 		},
 	},
@@ -29,12 +29,21 @@ export const config = {
 		},
 		primary: {
 			color: {
-				r: 204,
-				g: 51,
-				b: 51,
+				r: 224,
+				g: 82,
+				b: 82,
 			},
 			min: 0.65,
 			max: 0.9,
-		}
+		},
+		secondary: {
+			color: {
+				r: 76,
+				g: 93,
+				b: 179,
+			},
+			min: 0.65,
+			max: 0.9,
+		},
 	},
 };

@@ -1,7 +1,7 @@
 vec2 randomGradient(vec2 p, float seed) {
-	float angle = 6.2831853 * fract(sin(dot(p + seed, vec2(127.1, 311.7))) * 43758.5453);
+	vec2 q = vec2(dot(p, vec2(127.1, 311.7)) + seed * 74.7, dot(p, vec2(269.5, 183.3)) + seed * 113.5);
 
-	return vec2(cos(angle), sin(angle));
+	return normalize(-1.0 + 2.0 * fract(sin(q) * 43758.5453));
 }
 
 float noise(vec2 p, float seed) {

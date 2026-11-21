@@ -119,7 +119,12 @@ function color(pane) {
 		global.material.uniforms.uColorFrequency.value = new THREE.Vector2(ev.value.x, ev.value.y);
 	});
 
-	const primary = color.addFolder({ title: 'Primary' });
+	primary(color);
+	secondary(color);
+}
+
+function primary(pane) {
+	const primary = pane.addFolder({ title: 'Primary' });
 
 	primary.addBinding(config.color.primary, 'color', {
 		label: 'Color',
@@ -148,5 +153,38 @@ function color(pane) {
 		primaryMin.value = Math.min(primaryMin.value, ev.value);
 
 		global.material.uniforms.uPrimaryMax.value = ev.value;
+	});
+}
+
+function secondary(pane) {
+	const secondary = pane.addFolder({ title: 'Secondary' });
+
+	secondary.addBinding(config.color.secondary, 'color', {
+		label: 'Color',
+	}).on('change', (ev) => {
+		global.material.uniforms.uSecondaryColor.value = new THREE.Color(`rgb(${Math.round(ev.value.r)}, ${Math.round(ev.value.g)}, ${Math.round(ev.value.b)})`);
+	});
+
+	const primaryMin = secondary.addBinding(config.color.secondary, 'min', {
+		label: 'Min',
+		min: 0,
+		max: config.color.secondary.max,
+	});
+	const primaryMax = secondary.addBinding(config.color.secondary, 'max', {
+		label: 'Max',
+		min: config.color.secondary.min,
+		max: 1,
+	});
+	primaryMin.on('change', (ev) => {
+		primaryMax.min = ev.value;
+		primaryMax.value = Math.max(primaryMax.value, ev.value);
+
+		global.material.uniforms.uSecondaryMin.value = ev.value;
+	});
+	primaryMax.on('change', (ev) => {
+		primaryMin.max = ev.value;
+		primaryMin.value = Math.min(primaryMin.value, ev.value);
+
+		global.material.uniforms.uSecondaryMax.value = ev.value;
 	});
 }

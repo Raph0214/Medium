@@ -5,13 +5,15 @@ import vertexShader from '../../assets/shaders/plane/vertex.glsl?raw';
 import fragmentShader from '../../assets/shaders/plane/fragment.glsl?raw';
 import noiseShader from '../../assets/shaders/plane/utils/noise.glsl?raw'
 
-let prevTime = 0;
 export function createMaterial() {
 	const waveFrequency = config.wave.frequency;
 	const colorFrequency = config.color.frequency;
 
 	const primary = config.color.primary;
 	const primaryColor = primary.color;
+
+	const secondary = config.color.secondary;
+	const secondaryColor = secondary.color;
 
 	global.material = new THREE.ShaderMaterial({
 		vertexShader: noiseShader + '\n' + vertexShader,
@@ -27,15 +29,17 @@ export function createMaterial() {
 			uPrimaryColor: { value: new THREE.Color(`rgb(${primaryColor.r}, ${primaryColor.g}, ${primaryColor.b})`) },
 			uPrimaryMin: { value: primary.min },
 			uPrimaryMax: { value: primary.max },
+
+			uSecondaryColor: { value: new THREE.Color(`rgb(${secondaryColor.r}, ${secondaryColor.g}, ${secondaryColor.b})`) },
+			uSecondaryMin: { value: secondary.min },
+			uSecondaryMax: { value: secondary.max },
 		},
 		wireframe: config.backgroundPlane.wireframe,
 		side: THREE.FrontSide,
 	});
 
 	global.animations.material = function (time) {
-		global.material.uniforms.uTime.value += (time - prevTime) / 10000 * config.wave.speed;
-
-		prevTime = time;
+		global.material.uniforms.uTime.value = time / 10000 * config.wave.speed;
 	}
 
 	return global.material;
