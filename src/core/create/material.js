@@ -7,25 +7,33 @@ import noiseShader from '../../assets/shaders/plane/utils/noise.glsl?raw'
 
 let prevTime = 0;
 export function createMaterial() {
-	if (global.material) {
-		global.material.dispose();
-		global.animations.material = null;
-	}
+	const waveFrequency = config.wave.frequency;
+	const colorFrequency = config.color.frequency;
 
-	const frequency = config.noise.frequency
+	const primary = config.color.primary;
+	const primaryColor = primary.color;
+
 	global.material = new THREE.ShaderMaterial({
 		vertexShader: noiseShader + '\n' + vertexShader,
-		fragmentShader,
+		fragmentShader: noiseShader + '\n' + fragmentShader,
 		uniforms: {
 			uTime: { value: 0 },
-			uAmplitude: { value: config.noise.amplitude },
-			uFrequency: { value: new THREE.Vector2(frequency.x, frequency.y) },
+			uAmplitude: { value: config.wave.amplitude },
+			uWaveFrequency: { value: new THREE.Vector2(waveFrequency.x, waveFrequency.y) },
+
+			uColorFrequency: { value: new THREE.Vector2(colorFrequency.x, colorFrequency.y) },
+			uBaseColor: { value: global.backgroundColor },
+
+			uPrimaryColor: { value: new THREE.Color(`rgb(${primaryColor.r}, ${primaryColor.g}, ${primaryColor.b})`) },
+			uPrimaryMin: { value: primary.min },
+			uPrimaryMax: { value: primary.max },
 		},
 		wireframe: config.backgroundPlane.wireframe,
+		side: THREE.FrontSide,
 	});
 
 	global.animations.material = function (time) {
-		global.material.uniforms.uTime.value += (time - prevTime) / 10000 * config.noise.speed;
+		global.material.uniforms.uTime.value += (time - prevTime) / 10000 * config.wave.speed;
 
 		prevTime = time;
 	}

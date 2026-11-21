@@ -1,12 +1,16 @@
 uniform float uTime;
 uniform float uAmplitude;
-uniform vec2 uFrequency;
+uniform vec2 uWaveFrequency;
+varying vec3 vPosition;
 
 void main() {
 	vec3 pos = position;
-	vec2 offset = vec2(uTime, 0.0);
+	vPosition = pos;
 
-	pos.z += noise(pos.xy * uFrequency + offset, 0.0) * uAmplitude;
+	float layer1 = noise(pos.xy * uWaveFrequency + vec2(uTime, 0.0), 0.0) * uAmplitude;
+	float layer2 = noise(pos.xy * uWaveFrequency + vec2(uTime * 0.5, 0.0), 1.0) * uAmplitude;
+
+	pos.z += layer1 * 0.5 + layer2 * 0.5;
 
 	gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
 }

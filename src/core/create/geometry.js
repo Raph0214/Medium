@@ -10,7 +10,11 @@ export function createGeometry() {
 	const size = config.backgroundPlane.size;
 	const resolution = config.backgroundPlane.resolution;
 
-	global.geometry = new THREE.PlaneGeometry(size, size, resolution, resolution);
+	global.geometry = new THREE.PlaneGeometry(size.x, size.y, resolution, resolution);
+
+	if (global.plane) {
+		global.plane.geometry = global.geometry;
+	}
 
 	return global.geometry;
 }
