@@ -14,6 +14,7 @@ export function setupPane() {
 
 	camera(pane);
 	backgroundPlane(pane);
+	grain(pane);
 }
 
 function camera(pane) {
@@ -186,5 +187,30 @@ function secondary(pane) {
 		primaryMin.value = Math.min(primaryMin.value, ev.value);
 
 		global.material.uniforms.uSecondaryMax.value = ev.value;
+	});
+}
+
+function grain(pane) {
+	const grain = pane.addFolder({ title: 'Grain' });
+
+	grain.addBinding(config.grain, 'color', {
+		label: 'Color',
+	}).on('change', (ev) => {
+		global.material.uniforms.uGrainColor.value = new THREE.Color(`rgb(${Math.round(ev.value.r)}, ${Math.round(ev.value.g)}, ${Math.round(ev.value.b)})`);
+	});
+
+	grain.addBinding(config.grain, 'amount', {
+		label: 'Amount',
+		min: 0,
+		max: 1,
+	}).on('change', (ev) => {
+		global.material.uniforms.uGrainAmount.value = ev.value;
+	});
+	grain.addBinding(config.grain, 'exponent', {
+		label: 'Exponent',
+		min: 0,
+		step: 1,
+	}).on('change', (ev) => {
+		global.material.uniforms.uGrainExponent.value = ev.value;
 	});
 }

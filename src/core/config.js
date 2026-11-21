@@ -46,4 +46,13 @@ export const config = {
 			max: 0.9,
 		},
 	},
+	grain: {
+		color: {
+			r: 191,
+			g: 191,
+			b: 191,
+		},
+		amount: 0.05,
+		exponent: 10,
+	}
 };

@@ -1,10 +1,34 @@
-vec2 randomGradient(vec2 p, float seed) {
-	vec2 q = vec2(dot(p, vec2(127.1, 311.7)) + seed * 74.7, dot(p, vec2(269.5, 183.3)) + seed * 113.5);
+uvec2 hash(vec2 p, float seed) {
+	uvec2 q = uvec2(ivec2(p));
 
-	return normalize(-1.0 + 2.0 * fract(sin(q) * 43758.5453));
+	uint s = uint(seed);
+
+	q += uvec2(s * 374761393u, s * 668265263u);
+
+	q = q * 1664525u + 1013904223u;
+	q.x += q.y * 374761393u;
+	q.y += q.x * 668265263u;
+
+	q ^= q >> 16u;
+	q *= 2246822519u;
+	q ^= q >> 13u;
+
+	return q;
 }
 
-float noise(vec2 p, float seed) {
+float whiteNoise(vec2 p, float seed) {
+	return float(hash(p, seed).x) / 4294967295.0;
+}
+
+vec2 randomGradient(vec2 p, float seed) {
+	vec2 random = vec2(hash(p, seed)) / 4294967295.0;
+
+	float angle = random.x * 6.2831853;
+
+	return vec2(cos(angle), sin(angle));
+}
+
+float perlinNoise(vec2 p, float seed) {
 	vec2 i = floor(p);
 	vec2 f = fract(p);
 
