@@ -1,3 +1,1 @@
-export const global = {
-	animations: {},
-};
+export const global = { animations: {} };

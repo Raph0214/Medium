@@ -1,24 +1,21 @@
 import * as THREE from 'three';
-import { Pane } from 'tweakpane';
-import { global } from "../global";
+import { global as GLOBAL } from '../../global';
+import { global } from '../global';
 import { config } from '../config';
 import { resize } from '../setup/scene';
 import { rotate } from '../create/mesh';
 import { createGeometry } from '../create/geometry';
 
 export function setupPane() {
-	const pane = new Pane({
-		title: 'Config',
-		expanded: true,
-	});
+	const pane = GLOBAL.pane.addFolder({ title: 'Background' });
 
 	camera(pane);
 	background(pane);
 	grain(pane);
 }
 
-function camera(pane) {
-	const camera = pane.addFolder({ title: 'Camera' });
+function camera(parent) {
+	const camera = parent.addFolder({ title: 'Camera' });
 
 	camera.addBinding(config.camera, 'scale', {
 		label: 'Scale',
@@ -27,8 +24,8 @@ function camera(pane) {
 	}).on('change', resize);
 }
 
-function background(pane) {
-	const background = pane.addFolder({ title: 'Background' });
+function background(parent) {
+	const background = parent.addFolder({ title: 'Background' });
 
 	background.addBinding(config.background, 'size', {
 		label: 'Size',
@@ -71,8 +68,8 @@ function background(pane) {
 	color(background);
 }
 
-function wave(pane) {
-	const wave = pane.addFolder({ title: 'Wave' });
+function wave(parent) {
+	const wave = parent.addFolder({ title: 'Wave' });
 
 	wave.addBinding(config.wave, 'speed', {
 		label: 'Speed',
@@ -103,8 +100,8 @@ function wave(pane) {
 	});
 }
 
-function color(pane) {
-	const color = pane.addFolder({ title: 'Color' });
+function color(parent) {
+	const color = parent.addFolder({ title: 'Color' });
 
 	color.addBinding(config.color, 'frequency', {
 		label: 'Frequency',
@@ -124,8 +121,8 @@ function color(pane) {
 	secondary(color);
 }
 
-function primary(pane) {
-	const primary = pane.addFolder({ title: 'Primary' });
+function primary(parent) {
+	const primary = parent.addFolder({ title: 'Primary' });
 
 	primary.addBinding(config.color.primary, 'color', {
 		label: 'Color',
@@ -157,8 +154,8 @@ function primary(pane) {
 	});
 }
 
-function secondary(pane) {
-	const secondary = pane.addFolder({ title: 'Secondary' });
+function secondary(parent) {
+	const secondary = parent.addFolder({ title: 'Secondary' });
 
 	secondary.addBinding(config.color.secondary, 'color', {
 		label: 'Color',
@@ -190,8 +187,8 @@ function secondary(pane) {
 	});
 }
 
-function grain(pane) {
-	const grain = pane.addFolder({ title: 'Grain' });
+function grain(parent) {
+	const grain = parent.addFolder({ title: 'Grain' });
 
 	grain.addBinding(config.grain, 'color', {
 		label: 'Color',

@@ -13,13 +13,16 @@ export function setupScene() {
 	global.camera.position.z = 10;
 
 	global.renderer = new THREE.WebGLRenderer({ antialias: true });
-	global.renderer.setAnimationLoop(animate);
+	global.renderer.domElement.classList.add('background');
 	document.body.appendChild(global.renderer.domElement);
 
 	resize();
+	animate();
 }
 
 function animate(time) {
+	requestAnimationFrame(animate);
+
 	for (const [key, animation] of Object.entries(global.animations)) {
 		if (!animation) return;
 
