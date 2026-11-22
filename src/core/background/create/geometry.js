@@ -7,13 +7,13 @@ export function createGeometry() {
 		global.geometry.dispose();
 	}
 
-	const size = config.backgroundPlane.size;
-	const resolution = config.backgroundPlane.resolution;
+	const size = config.background.size;
+	const resolution = config.background.resolution;
 
 	global.geometry = new THREE.PlaneGeometry(size.x, size.y, Math.round(resolution * size.x), Math.round(resolution * size.y));
 
-	if (global.plane) {
-		global.plane.geometry = global.geometry;
+	if (global.background) {
+		global.background.geometry = global.geometry;
 	}
 
 	return global.geometry;

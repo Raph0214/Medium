@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { Pane } from 'tweakpane';
 import { global } from "../global";
 import { config } from '../config';
-import { resize } from './scene';
+import { resize } from '../setup/scene';
 import { rotate } from '../create/mesh';
 import { createGeometry } from '../create/geometry';
 
@@ -13,7 +13,7 @@ export function setupPane() {
 	});
 
 	camera(pane);
-	backgroundPlane(pane);
+	background(pane);
 	grain(pane);
 }
 
@@ -27,10 +27,10 @@ function camera(pane) {
 	}).on('change', resize);
 }
 
-function backgroundPlane(pane) {
-	const backgroundPlane = pane.addFolder({ title: 'Background Plane' });
+function background(pane) {
+	const background = pane.addFolder({ title: 'Background' });
 
-	backgroundPlane.addBinding(config.backgroundPlane, 'size', {
+	background.addBinding(config.background, 'size', {
 		label: 'Size',
 		x: {
 			min: 1,
@@ -42,18 +42,18 @@ function backgroundPlane(pane) {
 		},
 	}).on('change', createGeometry);
 
-	backgroundPlane.addBinding(config.backgroundPlane, 'resolution', {
+	background.addBinding(config.background, 'resolution', {
 		label: 'Resolution',
 		min: 1,
 		step: 1,
 	}).on('change', createGeometry);
 
-	backgroundPlane.addBinding(config.backgroundPlane, 'wireframe', { label: 'Wireframe' }).on('change', (ev) => {
+	background.addBinding(config.background, 'wireframe', { label: 'Wireframe' }).on('change', (ev) => {
 		global.material.wireframe = ev.value;
 		global.material.uniforms.uBaseColor.value = ev.value ? new THREE.Color(0.25, 0.25, 0.25) : global.backgroundColor;
 	});
 
-	backgroundPlane.addBinding(config.backgroundPlane, 'rotation', {
+	background.addBinding(config.background, 'rotation', {
 		label: 'Rotation',
 		x: {
 			min: 0,
@@ -67,8 +67,8 @@ function backgroundPlane(pane) {
 		rotate(ev.value);
 	});
 
-	wave(backgroundPlane);
-	color(backgroundPlane);
+	wave(background);
+	color(background);
 }
 
 function wave(pane) {

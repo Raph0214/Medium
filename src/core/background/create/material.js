@@ -1,9 +1,9 @@
 import * as THREE from 'three';
 import { global } from '../global';
 import { config } from '../config';
-import noiseShader from '../../assets/shaders/utils/noise.glsl?raw'
-import vertexShader from '../../assets/shaders/plane/vertex.glsl?raw';
-import fragmentShader from '../../assets/shaders/plane/fragment.glsl?raw';
+import noiseShader from '/src/assets/shaders/utils/noise.glsl?raw'
+import vertexShader from '/src/assets/shaders/background/vertex.glsl?raw';
+import fragmentShader from '/src/assets/shaders/background/fragment.glsl?raw';
 
 export function createMaterial() {
 	const waveFrequency = config.wave.frequency;
@@ -42,7 +42,7 @@ export function createMaterial() {
 			uGrainAmount: { value: grain.amount },
 			uGrainExponent: { value: grain.exponent },
 		},
-		wireframe: config.backgroundPlane.wireframe,
+		wireframe: config.background.wireframe,
 		side: THREE.FrontSide,
 	});
 

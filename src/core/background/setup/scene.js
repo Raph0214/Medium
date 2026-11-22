@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { global } from "../global";
+import { global } from '../global';
 import { config } from '../config';
 
 export function setupScene() {

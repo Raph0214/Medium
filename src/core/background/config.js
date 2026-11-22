@@ -2,7 +2,7 @@ export const config = {
 	camera: {
 		scale: 5,
 	},
-	backgroundPlane: {
+	background: {
 		size: {
 			x: 6,
 			y: 15,
@@ -34,7 +34,7 @@ export const config = {
 				b: 82,
 			},
 			min: 0.65,
-			max: 0.9,
+			max: 0.75,
 		},
 		secondary: {
 			color: {
@@ -43,7 +43,7 @@ export const config = {
 				b: 179,
 			},
 			min: 0.65,
-			max: 0.9,
+			max: 0.8,
 		},
 	},
 	grain: {
