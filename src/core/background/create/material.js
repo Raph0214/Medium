@@ -46,8 +46,12 @@ export function createMaterial() {
 		side: THREE.FrontSide,
 	});
 
+	let prevTime = performance.now();
 	global.animations.material = function (time) {
-		global.material.uniforms.uTime.value = time / 10000 * config.wave.speed;
+		const delta = time - prevTime;
+		prevTime = time;
+
+		global.material.uniforms.uTime.value += delta / 10000 * config.wave.speed;
 		global.material.uniforms.uFrame.value += Math.random() * 1000;
 	}
 

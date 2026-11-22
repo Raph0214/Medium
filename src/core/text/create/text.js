@@ -8,21 +8,22 @@ export function createText() {
 
 	element.textContent = 'test';
 	element.style.fontSize = '48px';
-	element.style.fontFamily = 'Arial';
 	element.style.color = 'white';
-	//element.style.background = 'white';
-	element.style.padding = '20px';
-	element.style.whiteSpace = 'nowrap';
 
 	global.test = new CSS3DObject(element);
 	global.scene.add(global.test);
 
 	global.animations.text = function (time) {
-		const alpha = Math.sin(time / 2000) * 0.5 + 0.5;
-		const position = global.start.clone().lerp(global.end, alpha);
-		const x = (position.x / global.start.x) ** (config.text.exponent) * global.start.x;
+		const start = global.start;
+		const end = global.end;
 
-		global.test.position.copy(new THREE.Vector3(x, position.y, position.z));
+		const range = 1;
+		const alpha = (Math.sin(time / 1000) * (range * 2 - 1) + 1) * 0.5;
+
+		const position = start.clone().lerp(end, alpha);
+		const x = alpha > 1 ? end.x : (position.x / start.x) ** config.text.exponent * start.x;
+
+		global.test.position.set(x, position.y, position.z);
 	}
 
 	updatePosition();

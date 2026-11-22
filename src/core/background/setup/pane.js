@@ -47,7 +47,6 @@ function background(parent) {
 
 	background.addBinding(config.background, 'wireframe', { label: 'Wireframe' }).on('change', (ev) => {
 		global.material.wireframe = ev.value;
-		global.material.uniforms.uBaseColor.value = ev.value ? new THREE.Color(0.25, 0.25, 0.25) : global.backgroundColor;
 	});
 
 	background.addBinding(config.background, 'rotation', {
@@ -96,7 +95,7 @@ function wave(parent) {
 			max: 10,
 		},
 	}).on('change', (ev) => {
-		global.material.uniforms.uWaveFrequency.value = new THREE.Vector2(ev.value.x, ev.value.y);
+		global.material.uniforms.uWaveFrequency.value.set(ev.value.x, ev.value.y);
 	});
 }
 
@@ -114,7 +113,7 @@ function color(parent) {
 			max: 10,
 		},
 	}).on('change', (ev) => {
-		global.material.uniforms.uColorFrequency.value = new THREE.Vector2(ev.value.x, ev.value.y);
+		global.material.uniforms.uColorFrequency.value.set(ev.value.x, ev.value.y);
 	});
 
 	primary(color);
@@ -127,7 +126,7 @@ function primary(parent) {
 	primary.addBinding(config.color.primary, 'color', {
 		label: 'Color',
 	}).on('change', (ev) => {
-		global.material.uniforms.uPrimaryColor.value = new THREE.Color(`rgb(${Math.round(ev.value.r)}, ${Math.round(ev.value.g)}, ${Math.round(ev.value.b)})`);
+		global.material.uniforms.uPrimaryColor.value.set(`rgb(${Math.round(ev.value.r)}, ${Math.round(ev.value.g)}, ${Math.round(ev.value.b)})`);
 	});
 
 	const primaryMin = primary.addBinding(config.color.primary, 'min', {
@@ -160,7 +159,7 @@ function secondary(parent) {
 	secondary.addBinding(config.color.secondary, 'color', {
 		label: 'Color',
 	}).on('change', (ev) => {
-		global.material.uniforms.uSecondaryColor.value = new THREE.Color(`rgb(${Math.round(ev.value.r)}, ${Math.round(ev.value.g)}, ${Math.round(ev.value.b)})`);
+		global.material.uniforms.uSecondaryColor.value.set(`rgb(${Math.round(ev.value.r)}, ${Math.round(ev.value.g)}, ${Math.round(ev.value.b)})`);
 	});
 
 	const primaryMin = secondary.addBinding(config.color.secondary, 'min', {
@@ -193,7 +192,7 @@ function grain(parent) {
 	grain.addBinding(config.grain, 'color', {
 		label: 'Color',
 	}).on('change', (ev) => {
-		global.material.uniforms.uGrainColor.value = new THREE.Color(`rgb(${Math.round(ev.value.r)}, ${Math.round(ev.value.g)}, ${Math.round(ev.value.b)})`);
+		global.material.uniforms.uGrainColor.value.set(`rgb(${Math.round(ev.value.r)}, ${Math.round(ev.value.g)}, ${Math.round(ev.value.b)})`);
 	});
 
 	grain.addBinding(config.grain, 'amount', {

@@ -52,7 +52,7 @@ export const config = {
 			g: 191,
 			b: 191,
 		},
-		amount: 0.05,
-		exponent: 10,
+		amount: 0.2,
+		exponent: 30,
 	}
 };

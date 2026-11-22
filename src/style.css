@@ -19,9 +19,8 @@ body {
 }
 
 .text {
-	transform: translateZ(0);
-	backface-visibility: hidden;
-	-webkit-font-smoothing: antialiased;
+	opacity: 80%;
+
 	position: fixed;
 }
 

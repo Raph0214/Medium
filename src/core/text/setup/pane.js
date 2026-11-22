@@ -24,17 +24,24 @@ function camera(parent) {
 
 		updatePosition();
 	});
+
+	camera.addBinding(config.camera, 'speed', {
+		label: 'Speed',
+		min: 0,
+		max: 10,
+		step: 0.1,
+	});
+
+	camera.addBinding(config.camera, 'angle', {
+		label: 'Angle',
+		min: 0,
+		max: 45,
+		step: 1,
+	});
 }
 
 function text(parent) {
 	const text = parent.addFolder({ title: 'Text' });
-
-	text.addBinding(config.text, 'exponent', {
-		label: 'Exponent',
-		min: 0,
-		step: 0.1,
-	});
-
 
 	text.addBinding(config.text, 'start', {
 		label: 'Start',
@@ -68,4 +75,10 @@ function text(parent) {
 			step: 1,
 		},
 	}).on('change', updatePosition);
+
+	text.addBinding(config.text, 'exponent', {
+		label: 'Exponent',
+		min: 0,
+		step: 0.1,
+	});
 }

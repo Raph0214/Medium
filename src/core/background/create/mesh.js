@@ -17,5 +17,5 @@ export function createMesh() {
 
 const radians = 1 / 180 * Math.PI;
 export function rotate(rotation) {
-	global.background.setRotationFromEuler(new THREE.Euler(-rotation.x * radians, rotation.y * radians, 0));
+	global.background.rotation.set(-rotation.x * radians, rotation.y * radians, 0);
 }

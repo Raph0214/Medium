@@ -13,7 +13,6 @@ export function setupScene() {
 
 	global.renderer = new CSS3DRenderer({ antialias: true });
 	global.renderer.domElement.classList.add('text');
-	//global.renderer.domElement.style.position = 'fixed';
 	document.body.appendChild(global.renderer.domElement);
 
 	resize();
