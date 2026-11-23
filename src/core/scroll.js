@@ -24,5 +24,5 @@ function animate(time = 0) {
 	prevTime = time;
 
 	global.velocity *= (1 - config.decay) ** delta;
-	global.scroll += global.velocity * delta;
+	global.scroll += global.velocity * config.speed * delta;
 }

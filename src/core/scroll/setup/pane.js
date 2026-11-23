@@ -1,20 +1,11 @@
 import { global as GLOBAL } from '../../global';
 import { config } from '../config';
-import { global } from '../global';
 
 export function setupPane() {
 	const pane = GLOBAL.pane.addFolder({ title: 'Scroll' });
 
-	range();
 	scroll(pane);
 	values(pane);
-}
-
-function range() {
-	const scale = 5;
-
-	global.min = -config.speed * scale;
-	global.max = config.speed * scale;
 }
 
 function scroll(parent) {
@@ -22,13 +13,6 @@ function scroll(parent) {
 		label: 'Speed',
 		min: 0,
 		max: 1,
-	}).on('change', () => {
-		const velocity = global.velocity;
-
-		range();
-
-		velocity.min = global.min;
-		velocity.max = global.max;
 	});
 	parent.addBinding(config, 'decay', {
 		label: 'Decay',
@@ -38,21 +22,25 @@ function scroll(parent) {
 }
 
 function values(parent) {
-	global.velocity = parent.addBinding(GLOBAL, 'velocity', {
+	const scale = 5;
+	let min = -config.speed * scale;
+	let max = config.speed * scale;
+
+	parent.addBinding(GLOBAL, 'velocity', {
 		readonly: true,
 		view: 'graph',
-		min: global.min,
-		max: global.max,
+		min: -5,
+		max: 5,
 	});
-	global.scroll = parent.addBinding(GLOBAL, 'scroll', {
+	const scroll = parent.addBinding(GLOBAL, 'scroll', {
 		readonly: true,
 		view: 'graph',
-		min: global.min,
-		max: global.max,
+		min: min,
+		max: max,
 	}).on('change', (ev) => {
 		const value = ev.value;
 
-		global.scroll.min = value + global.min;
-		global.scroll.max = value + global.max;
+		scroll.min = value + min;
+		scroll.max = value + max;
 	});
 }

@@ -1,5 +1,4 @@
 import { global } from '../../global';
-import { config } from '../config';
 
 export function setupTouch() {
 	let touching = false;
@@ -15,15 +14,12 @@ export function setupTouch() {
 	});
 
 	window.addEventListener('pointermove', (event) => {
-		//console.log(event.pointerType);
 		if (!touching) return;
 
 		const y = event.clientY;
 		last = last ? last : y;
 
-		//console.log((last - y) / window.innerHeight, last, y);
-
-		global.velocity -= (last - y) / window.innerHeight * config.speed * 10;
+		global.velocity += (y - last) / window.innerHeight * 5;
 		last = y;
 	});
 }
