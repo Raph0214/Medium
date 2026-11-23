@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { CSS3DObject } from 'three/addons/renderers/CSS3DRenderer.js';
+import { global as GLOBAL } from '../../global';
 import { global } from '../global';
 import { config } from '../config';
 
@@ -17,8 +18,8 @@ export function createText() {
 		const start = global.start;
 		const end = global.end;
 
-		const range = 1;
-		const alpha = (Math.sin(time / 1000) * (range * 2 - 1) + 1) * 0.5;
+		//const range = 1;
+		const alpha = GLOBAL.scroll;
 
 		const position = start.clone().lerp(end, alpha);
 		const x = alpha > 1 ? end.x : (position.x / start.x) ** config.text.exponent * start.x;

@@ -32,3 +32,11 @@ body {
 	left: 8px !important;
 	z-index: 10 !important;
 }
+
+.tp-ttv {
+	color: var(--tp-label-foreground-color) !important;
+}
+
+.tp-p2dpv_ax {
+	stroke: var(--tp-label-foreground-color) !important;
+}

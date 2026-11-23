@@ -4,7 +4,10 @@ import { config } from '../config';
 import { updatePosition } from '../create/text';
 
 export function setupPane() {
-	const pane = GLOBAL.pane.addFolder({ title: 'Text' });
+	const pane = GLOBAL.pane.addFolder({
+		title: 'Text',
+		expanded: false,
+	});
 
 	camera(pane);
 	text(pane);
@@ -48,12 +51,10 @@ function text(parent) {
 		x: {
 			min: -1,
 			max: 1,
-			step: 0.1,
 		},
 		y: {
 			min: -1,
 			max: 1,
-			step: 0.1,
 		},
 		z: {
 			step: 1,
@@ -64,12 +65,10 @@ function text(parent) {
 		x: {
 			min: -1,
 			max: 1,
-			step: 0.1,
 		},
 		y: {
 			min: -1,
 			max: 1,
-			step: 0.1,
 		},
 		z: {
 			step: 1,

@@ -7,7 +7,10 @@ import { rotate } from '../create/mesh';
 import { createGeometry } from '../create/geometry';
 
 export function setupPane() {
-	const pane = GLOBAL.pane.addFolder({ title: 'Background' });
+	const pane = GLOBAL.pane.addFolder({
+		title: 'Background',
+		expanded: false,
+	});
 
 	camera(pane);
 	background(pane);
@@ -95,7 +98,9 @@ function wave(parent) {
 			max: 10,
 		},
 	}).on('change', (ev) => {
-		global.material.uniforms.uWaveFrequency.value.set(ev.value.x, ev.value.y);
+		const value = ev.value;
+
+		global.material.uniforms.uWaveFrequency.value.set(value.x, value.y);
 	});
 }
 
@@ -113,7 +118,9 @@ function color(parent) {
 			max: 10,
 		},
 	}).on('change', (ev) => {
-		global.material.uniforms.uColorFrequency.value.set(ev.value.x, ev.value.y);
+		const value = ev.value;
+
+		global.material.uniforms.uColorFrequency.value.set(value.x, value.y);
 	});
 
 	primary(color);
@@ -126,7 +133,9 @@ function primary(parent) {
 	primary.addBinding(config.color.primary, 'color', {
 		label: 'Color',
 	}).on('change', (ev) => {
-		global.material.uniforms.uPrimaryColor.value.set(`rgb(${Math.round(ev.value.r)}, ${Math.round(ev.value.g)}, ${Math.round(ev.value.b)})`);
+		const value = ev.value;
+
+		global.material.uniforms.uPrimaryColor.value.set(`rgb(${Math.round(value.r)}, ${Math.round(value.g)}, ${Math.round(value.b)})`);
 	});
 
 	const primaryMin = primary.addBinding(config.color.primary, 'min', {
@@ -140,16 +149,20 @@ function primary(parent) {
 		max: 1,
 	});
 	primaryMin.on('change', (ev) => {
-		primaryMax.min = ev.value;
-		primaryMax.value = Math.max(primaryMax.value, ev.value);
+		const value = ev.value;
 
-		global.material.uniforms.uPrimaryMin.value = ev.value;
+		primaryMax.min = value;
+		primaryMax.value = Math.max(primaryMax.value, value);
+
+		global.material.uniforms.uPrimaryMin.value = value;
 	});
 	primaryMax.on('change', (ev) => {
-		primaryMin.max = ev.value;
-		primaryMin.value = Math.min(primaryMin.value, ev.value);
+		const value = ev.value;
 
-		global.material.uniforms.uPrimaryMax.value = ev.value;
+		primaryMin.max = value;
+		primaryMin.value = Math.min(primaryMin.value, value);
+
+		global.material.uniforms.uPrimaryMax.value = value;
 	});
 }
 
@@ -159,7 +172,9 @@ function secondary(parent) {
 	secondary.addBinding(config.color.secondary, 'color', {
 		label: 'Color',
 	}).on('change', (ev) => {
-		global.material.uniforms.uSecondaryColor.value.set(`rgb(${Math.round(ev.value.r)}, ${Math.round(ev.value.g)}, ${Math.round(ev.value.b)})`);
+		const value = ev.value;
+
+		global.material.uniforms.uSecondaryColor.value.set(`rgb(${Math.round(value.r)}, ${Math.round(value.g)}, ${Math.round(value.b)})`);
 	});
 
 	const primaryMin = secondary.addBinding(config.color.secondary, 'min', {
@@ -173,16 +188,20 @@ function secondary(parent) {
 		max: 1,
 	});
 	primaryMin.on('change', (ev) => {
-		primaryMax.min = ev.value;
-		primaryMax.value = Math.max(primaryMax.value, ev.value);
+		const value = ev.value;
 
-		global.material.uniforms.uSecondaryMin.value = ev.value;
+		primaryMax.min = value;
+		primaryMax.value = Math.max(primaryMax.value, value);
+
+		global.material.uniforms.uSecondaryMin.value = value;
 	});
 	primaryMax.on('change', (ev) => {
-		primaryMin.max = ev.value;
-		primaryMin.value = Math.min(primaryMin.value, ev.value);
+		const value = ev.value;
 
-		global.material.uniforms.uSecondaryMax.value = ev.value;
+		primaryMin.max = value;
+		primaryMin.value = Math.min(primaryMin.value, value);
+
+		global.material.uniforms.uSecondaryMax.value = value;
 	});
 }
 
@@ -192,7 +211,9 @@ function grain(parent) {
 	grain.addBinding(config.grain, 'color', {
 		label: 'Color',
 	}).on('change', (ev) => {
-		global.material.uniforms.uGrainColor.value.set(`rgb(${Math.round(ev.value.r)}, ${Math.round(ev.value.g)}, ${Math.round(ev.value.b)})`);
+		const value = ev.value;
+
+		global.material.uniforms.uGrainColor.value.set(`rgb(${Math.round(value.r)}, ${Math.round(value.g)}, ${Math.round(value.b)})`);
 	});
 
 	grain.addBinding(config.grain, 'amount', {

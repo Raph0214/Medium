@@ -2,7 +2,6 @@ import * as THREE from 'three';
 import { global } from '../global';
 import { config } from '../config';
 
-const radians = 1 / 180 * Math.PI;
 export function setupCamera() {
 	global.mouse = new THREE.Vector2();
 
@@ -13,6 +12,7 @@ export function setupCamera() {
 }
 
 function responsive() {
+	const radians = 1 / 180 * Math.PI;
 	let prevTime = performance.now();
 	let prevRotation = new THREE.Vector2();
 
@@ -28,7 +28,7 @@ function responsive() {
 		const y = Math.min(Math.max(mouse.y / window.innerHeight * 2 - 1, -1), 1);
 
 		const rotation = new THREE.Vector2(x * -angle * 0.5 * radians, y * -angle * 0.5 * radians, 0);
-		const newRotation = prevRotation.lerp(rotation, delta / 1000 * camera.speed);
+		const newRotation = prevRotation.lerp(rotation, Math.min(Math.max(delta / 1000 * camera.speed, 0), 1));
 		prevRotation = newRotation;
 
 		global.camera.rotation.set(newRotation.y, newRotation.x, 0);

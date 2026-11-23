@@ -1,10 +1,12 @@
-import { setupPane } from './core/pane';
+import { pane } from './core/pane';
+import { scroll } from './core/scroll';
 import { background } from './core/background';
 import { text } from './core/text';
 
 
 function main() {
-	setupPane();
+	pane();
+	scroll();
 
 	background();
 
