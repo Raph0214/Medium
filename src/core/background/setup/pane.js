@@ -75,12 +75,14 @@ function wave(parent) {
 	wave.addBinding(config.wave, 'speed', {
 		label: 'Speed',
 		min: 0,
+		max: 10,
 		step: 0.1,
 	});
 
 	wave.addBinding(config.wave, 'amplitude', {
 		label: 'Amplitude',
 		min: 0,
+		max: 5,
 		step: 0.1,
 	}).on('change', (ev) => {
 		global.material.uniforms.uAmplitude.value = ev.value;
@@ -168,7 +170,7 @@ function primary(parent) {
 function secondary(parent) {
 	const secondary = parent.addFolder({ title: 'Secondary' });
 
-	secondary.addBinding(config.color.secondary, 'color', {
+	global.secondary = secondary.addBinding(config.color.secondary, 'color', {
 		label: 'Color',
 	}).on('change', (ev) => {
 		const value = ev.value;
@@ -186,6 +188,21 @@ function secondary(parent) {
 		min: config.color.secondary.min,
 		max: 1,
 	});
+
+	const responsive = secondary.addFolder({ title: 'Responsive' });
+
+	responsive.addBinding(config.color.secondary.responsive, 'speed', {
+		label: 'Speed',
+		min: 0,
+		max: 5,
+		step: 0.1,
+	});
+	const amount = responsive.addBinding(config.color.secondary.responsive, 'amount', {
+		label: 'Amount',
+		min: 0,
+		max: config.color.secondary.max - config.color.secondary.min,
+	});
+
 	primaryMin.on('change', (ev) => {
 		const value = ev.value;
 
@@ -193,6 +210,12 @@ function secondary(parent) {
 		primaryMax.value = Math.max(primaryMax.value, value);
 
 		global.material.uniforms.uSecondaryMin.value = value;
+
+		const range = config.color.secondary.max - value;
+		amount.max = range;
+		config.color.secondary.responsive.amount = Math.min(config.color.secondary.responsive.amount, range);
+
+		amount.refresh();
 	});
 	primaryMax.on('change', (ev) => {
 		const value = ev.value;
@@ -201,6 +224,12 @@ function secondary(parent) {
 		primaryMin.value = Math.min(primaryMin.value, value);
 
 		global.material.uniforms.uSecondaryMax.value = value;
+
+		const range = value - config.color.secondary.min;
+		amount.max = range;
+		config.color.secondary.responsive.amount = Math.min(config.color.secondary.responsive.amount, range);
+
+		amount.refresh();
 	});
 }
 

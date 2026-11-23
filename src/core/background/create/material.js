@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { global as GLOBAL } from '../../global';
 import { global } from '../global';
 import { config } from '../config';
 import noiseShader from '/src/assets/shaders/utils/noise.glsl?raw';
@@ -37,6 +38,7 @@ export function createMaterial() {
 			uSecondaryColor: { value: new THREE.Color(`rgb(${secondaryColor.r}, ${secondaryColor.g}, ${secondaryColor.b})`) },
 			uSecondaryMin: { value: secondary.min },
 			uSecondaryMax: { value: secondary.max },
+			uEffectAmount: { value: 0 },
 
 			uGrainColor: { value: new THREE.Color(`rgb(${grainColor.r}, ${grainColor.g}, ${grainColor.b})`) },
 			uGrainAmount: { value: grain.amount },
@@ -53,6 +55,19 @@ export function createMaterial() {
 
 		global.material.uniforms.uTime.value += delta / 10000 * config.wave.speed;
 		global.material.uniforms.uFrame.value += Math.random() * 1000;
+
+		const color = global.material.uniforms.uSecondaryColor.value;
+		color.offsetHSL(delta / 10000 * secondary.responsive.speed, 0, 0);
+
+		const newColor = color.getRGB(new THREE.Color(), THREE.SRGBColorSpace);
+
+		secondaryColor.r = Math.round(newColor.r * 255);
+		secondaryColor.g = Math.round(newColor.g * 255);
+		secondaryColor.b = Math.round(newColor.b * 255);
+
+		global.secondary.refresh();
+
+		global.material.uniforms.uEffectAmount.value = Math.min(Math.max(GLOBAL.velocity / 2, -1), 1) * secondary.responsive.amount;
 	};
 
 	return global.material;

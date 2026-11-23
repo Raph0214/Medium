@@ -42,3 +42,8 @@ body {
 .tp-p2dpv_ax {
 	stroke: var(--tp-label-foreground-color) !important;
 }
+
+
+.tp-coltxtv_ms option {
+	background-color: var(--tp-base-background-color) !important;
+}

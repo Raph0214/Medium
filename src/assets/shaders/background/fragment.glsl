@@ -10,6 +10,7 @@ uniform float uPrimaryMax;
 uniform vec3 uSecondaryColor;
 uniform float uSecondaryMin;
 uniform float uSecondaryMax;
+uniform float uEffectAmount;
 
 uniform vec3 uGrainColor;
 uniform float uGrainAmount;
@@ -26,7 +27,9 @@ void main() {
 	vec3 primaryColor = uPrimaryColor * primaryFactor;
 
 	float secondary = pow(perlinNoise(pos.xy * uColorFrequency + offset, 3.0) * 0.5 + 0.5, 0.5);
-	float secondaryFactor = pow(max((secondary - uSecondaryMin) / (uSecondaryMax - uSecondaryMin), 0.0), 2.0);
+	float secondaryMin = uSecondaryMin + uEffectAmount;
+	float secondaryMax = uSecondaryMax + uEffectAmount;
+	float secondaryFactor = pow(max((secondary - secondaryMin) / (secondaryMax - secondaryMin), 0.0), 2.0);
 	vec3 secondaryColor = uSecondaryColor * secondaryFactor;
 
 	vec3 baseColor = uBaseColor * (1.0 - max(primaryFactor, secondaryFactor));
