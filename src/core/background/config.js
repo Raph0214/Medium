@@ -42,11 +42,11 @@ export const config = {
 				g: 93,
 				b: 179,
 			},
-			min: 0.65,
+			min: 0.7,
 			max: 0.85,
 			responsive: {
 				speed: 0.4,
-				amount: 0.02,
+				amount: 0.1,
 			}
 		},
 	},

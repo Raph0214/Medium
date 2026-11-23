@@ -1,6 +1,6 @@
 import { global as GLOBAL } from '../../global';
-import { global } from '../global';
 import { config } from '../config';
+import { resize } from './scene';
 import { updatePosition } from '../create/text';
 
 export function setupPane() {
@@ -21,12 +21,7 @@ function camera(parent) {
 		min: 1,
 		max: 120,
 		step: 1,
-	}).on('change', (ev) => {
-		global.camera.fov = ev.value;
-		global.camera.updateProjectionMatrix();
-
-		updatePosition();
-	});
+	}).on('change', resize);
 
 	camera.addBinding(config.camera, 'speed', {
 		label: 'Speed',
@@ -49,12 +44,12 @@ function text(parent) {
 	text.addBinding(config.text, 'start', {
 		label: 'Start',
 		x: {
-			min: -1,
-			max: 1,
+			min: -2,
+			max: 2,
 		},
 		y: {
-			min: -1,
-			max: 1,
+			min: -2,
+			max: 2,
 		},
 		z: {
 			step: 1,
@@ -63,12 +58,12 @@ function text(parent) {
 	text.addBinding(config.text, 'end', {
 		label: 'End',
 		x: {
-			min: -1,
-			max: 1,
+			min: -2,
+			max: 2,
 		},
 		y: {
-			min: -1,
-			max: 1,
+			min: -2,
+			max: 2,
 		},
 		z: {
 			step: 1,

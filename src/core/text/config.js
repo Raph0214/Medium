@@ -6,9 +6,9 @@ export const config = {
 	},
 	text: {
 		start: {
-			x: 0.5,
+			x: 1.5,
 			y: 0.75,
-			z: 750,
+			z: 1000,
 		},
 		end: {
 			x: 0,

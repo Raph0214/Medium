@@ -20,13 +20,18 @@ body {
 	touch-action: none;
 }
 
-.text {
-	opacity: 80%;
+.title {
+	font-size: 80px;
 
-	position: fixed;
+	opacity: 80%;
+	color: white;
+
+	white-space: pre;
+	tab-size: 0;
 }
 
-.background {
+.background,
+.text {
 	position: fixed;
 }
 

@@ -2,7 +2,10 @@ import { global as GLOBAL } from '../../global';
 import { config } from '../config';
 
 export function setupPane() {
-	const pane = GLOBAL.pane.addFolder({ title: 'Scroll' });
+	const pane = GLOBAL.pane.addFolder({
+		title: 'Scroll',
+		expanded: false,
+	});
 
 	scroll(pane);
 	values(pane);

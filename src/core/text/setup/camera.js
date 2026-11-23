@@ -3,7 +3,7 @@ import { global } from '../global';
 import { config } from '../config';
 
 export function setupCamera() {
-	global.mouse = new THREE.Vector2();
+	global.mouse = new THREE.Vector2(0, 0);
 
 	if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
 		responsive();
@@ -24,10 +24,7 @@ function responsive() {
 		const delta = time - prevTime;
 		prevTime = time;
 
-		const x = Math.min(Math.max(mouse.x / window.innerWidth * 2 - 1, -1), 1);
-		const y = Math.min(Math.max(mouse.y / window.innerHeight * 2 - 1, -1), 1);
-
-		const rotation = new THREE.Vector2(x * -angle * 0.5 * radians, y * -angle * 0.5 * radians, 0);
+		const rotation = new THREE.Vector2(mouse.x * -angle * 0.5 * radians, mouse.y * -angle * 0.5 * radians, 0);
 		const newRotation = prevRotation.lerp(rotation, Math.min(Math.max(delta / 1000 * camera.speed, 0), 1));
 		prevRotation = newRotation;
 
@@ -38,7 +35,7 @@ function responsive() {
 function track() {
 	window.addEventListener('pointermove', (event) => {
 		const mouse = global.mouse;
-		mouse.x = event.clientX;
-		mouse.y = event.clientY;
+		mouse.x = event.clientX / window.innerWidth * 2 - 1;
+		mouse.y = event.clientY / window.innerHeight * 2 - 1;
 	});
 }

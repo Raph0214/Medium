@@ -1,4 +1,4 @@
 export const config = {
-	speed: 0.25,
-	decay: 0.75,
+	speed: 0.375,
+	decay: 0.9,
 };

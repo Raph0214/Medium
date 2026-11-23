@@ -6,10 +6,7 @@ import { updatePosition } from '../create/text';
 
 export function setupScene() {
 	global.scene = new THREE.Scene();
-	global.camera = new THREE.PerspectiveCamera(config.camera.FOV,
-		window.innerWidth / window.innerHeight,
-		0.1,
-		2000);
+	global.camera = new THREE.PerspectiveCamera(config.camera.FOV);
 
 	global.renderer = new CSS3DRenderer({ antialias: true });
 	global.renderer.domElement.classList.add('text');
@@ -35,8 +32,11 @@ window.addEventListener('resize', resize);
 export function resize() {
 	const width = window.innerWidth;
 	const height = window.innerHeight;
+	const aspect = width / height;
+	const baseFOV = THREE.MathUtils.degToRad(config.camera.FOV);
 
-	global.camera.aspect = width / height;
+	global.camera.aspect = aspect;
+	global.camera.fov = THREE.MathUtils.radToDeg(2 * Math.atan(Math.tan(baseFOV / 2) * Math.max(1, 1 / aspect)));
 	global.camera.updateProjectionMatrix();
 
 	global.renderer.setSize(width, height, true);
