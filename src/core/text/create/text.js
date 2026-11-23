@@ -14,18 +14,16 @@ export function createText() {
 	global.test = new CSS3DObject(element);
 	global.scene.add(global.test);
 
-	global.animations.text = function (time) {
+	global.animations.text = function () {
 		const start = global.start;
 		const end = global.end;
 
-		//const range = 1;
 		const alpha = GLOBAL.scroll;
-
 		const position = start.clone().lerp(end, alpha);
 		const x = alpha > 1 ? end.x : (position.x / start.x) ** config.text.exponent * start.x;
 
 		global.test.position.set(x, position.y, position.z);
-	}
+	};
 
 	updatePosition();
 }

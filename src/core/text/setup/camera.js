@@ -32,7 +32,7 @@ function responsive() {
 		prevRotation = newRotation;
 
 		global.camera.rotation.set(newRotation.y, newRotation.x, 0);
-	}
+	};
 }
 
 function track() {

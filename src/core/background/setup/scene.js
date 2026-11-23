@@ -3,7 +3,7 @@ import { global } from '../global';
 import { config } from '../config';
 
 export function setupScene() {
-	const style = getComputedStyle(document.documentElement)
+	const style = getComputedStyle(document.documentElement);
 	global.backgroundColor = new THREE.Color(style.getPropertyValue('--background-color'));
 
 	global.scene = new THREE.Scene();
@@ -23,7 +23,7 @@ export function setupScene() {
 function animate(time) {
 	requestAnimationFrame(animate);
 
-	for (const [key, animation] of Object.entries(global.animations)) {
+	for (const animation of Object.values(global.animations)) {
 		if (!animation) return;
 
 		animation(time);

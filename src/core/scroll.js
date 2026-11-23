@@ -1,29 +1,19 @@
 import { global } from './global';
 import { config } from './scroll/config';
 import { setupPane } from './scroll/setup/pane';
+import { setupTouch } from './scroll/setup/touch';
+import { setupWheel } from './scroll/setup/wheel';
 
 export function scroll() {
-	track();
-
-	setupPane();
-
-	animate();
-}
-
-function track() {
 	global.velocity = 0;
 	global.scroll = 0;
 
-	window.addEventListener('wheel', (event) => {
-		const delta = event.deltaY;
-		const mode = event.deltaMode;
-		const height = window.innerHeight;
+	setupPane();
 
-		if (mode == 1) delta *= 16;
-		if (mode == 2) delta *= window.innerHeight;
+	setupWheel();
+	setupTouch();
 
-		global.velocity += delta / height * config.speed;
-	});
+	animate();
 }
 
 let prevTime = performance.now();

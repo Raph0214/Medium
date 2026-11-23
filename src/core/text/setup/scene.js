@@ -22,7 +22,7 @@ export function setupScene() {
 function animate(time) {
 	requestAnimationFrame(animate);
 
-	for (const [key, animation] of Object.entries(global.animations)) {
+	for (const animation of Object.values(global.animations)) {
 		if (!animation) return;
 
 		animation(time);

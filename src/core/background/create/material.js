@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { global } from '../global';
 import { config } from '../config';
-import noiseShader from '/src/assets/shaders/utils/noise.glsl?raw'
+import noiseShader from '/src/assets/shaders/utils/noise.glsl?raw';
 import vertexShader from '/src/assets/shaders/background/vertex.glsl?raw';
 import fragmentShader from '/src/assets/shaders/background/fragment.glsl?raw';
 
@@ -53,7 +53,7 @@ export function createMaterial() {
 
 		global.material.uniforms.uTime.value += delta / 10000 * config.wave.speed;
 		global.material.uniforms.uFrame.value += Math.random() * 1000;
-	}
+	};
 
 	return global.material;
 }

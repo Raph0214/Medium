@@ -22,7 +22,7 @@ function scroll(parent) {
 		label: 'Speed',
 		min: 0,
 		max: 1,
-	}).on('change', (ev) => {
+	}).on('change', () => {
 		const velocity = global.velocity;
 
 		range();

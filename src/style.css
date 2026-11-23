@@ -16,6 +16,8 @@ body {
 
 	margin: 0;
 	overflow: clip;
+
+	touch-action: none;
 }
 
 .text {

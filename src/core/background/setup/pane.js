@@ -1,4 +1,3 @@
-import * as THREE from 'three';
 import { global as GLOBAL } from '../../global';
 import { global } from '../global';
 import { config } from '../config';
