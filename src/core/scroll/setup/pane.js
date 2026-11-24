@@ -4,7 +4,7 @@ import { config } from '../config';
 export function setupPane() {
 	const pane = GLOBAL.pane.addFolder({
 		title: 'Scroll',
-		expanded: false,
+		expanded: true,
 	});
 
 	scroll(pane);

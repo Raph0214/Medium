@@ -25,4 +25,5 @@ function animate(time = 0) {
 
 	global.velocity *= (1 - config.decay) ** delta;
 	global.scroll += global.velocity * config.speed * delta;
+	global.scroll = Math.max(global.scroll, 0);
 }

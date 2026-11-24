@@ -3,7 +3,7 @@ import { CSS3DObject } from 'three/addons/renderers/CSS3DRenderer.js';
 import { global as GLOBAL } from '../../global';
 import { global } from '../global';
 import { config } from '../config';
-import { content as contentList } from '/src/assets/content';
+import { content } from '/src/assets/content';
 
 export function createText() {
 	loadContent();
@@ -11,13 +11,19 @@ export function createText() {
 	updatePosition();
 }
 
+function smoothMax(a, b, k) {
+	const h = Math.max(k - Math.abs(a - b), 0) / k;
+	return Math.max(a, b) + h * h * k * 0.25;
+}
+
 function loadContent() {
 	const template = document.querySelector('#content');
+	const contentStart = content.start;
 
-	for (const [index, content] of contentList.entries()) {
+	for (const [index, item] of content.list.entries()) {
 		const element = template.content.firstElementChild.cloneNode(true);
-		element.querySelector('.content-title').textContent = content.title.trim();
-		element.querySelector('.content-label').textContent = content.label.trim();
+		element.querySelector('.content-title').textContent = item.title.trim();
+		element.querySelector('.content-label').textContent = item.label.trim();
 
 		const object = new CSS3DObject(element);
 		object.scale.set(0.25, 0.25, 0.25);
@@ -26,13 +32,12 @@ function loadContent() {
 		global.animations[`content${index}`] = function () {
 			const start = global.start;
 			const end = global.end;
-			const offset = content.position;
 
-			const alpha = GLOBAL.scroll - offset.z + 0.9;
-			const position = start.clone().lerp(end, alpha);
+			const alpha = smoothMax(GLOBAL.scroll - contentStart.scroll, 0, contentStart.smoothing) + contentStart.offset;
+			const position = start.clone().lerp(end, alpha - content.gap * index);
 			const x = (position.x / start.x) ** config.text.exponent * start.x;
 
-			object.position.set(x + offset.x, position.y + offset.y, position.z);
+			object.position.set(x, position.y, position.z);
 		};
 	}
 }

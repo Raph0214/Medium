@@ -108,7 +108,7 @@ body {
 		transition: transform var(--content-transition-duration) var(--content-transition-style);
 	}
 
-	.content-title:hover {
+	.content-container:hover .content-title {
 		--content-title-transform: calc(var(--content-line-height) * -0.5);
 	}
 

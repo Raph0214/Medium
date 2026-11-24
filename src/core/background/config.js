@@ -34,7 +34,7 @@ export const config = {
 				b: 82,
 			},
 			min: 0.7,
-			max: 0.85,
+			max: 0.8,
 		},
 		secondary: {
 			color: {
@@ -43,10 +43,10 @@ export const config = {
 				b: 179,
 			},
 			min: 0.7,
-			max: 0.85,
+			max: 0.8,
 			responsive: {
 				speed: 0.4,
-				amount: 0.1,
+				amount: 0.0875,
 			}
 		},
 	},
