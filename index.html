@@ -3,8 +3,10 @@
 
 <head>
 	<meta charset="UTF-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 	<link rel="stylesheet" href="/src/style.css">
+	<link rel="stylesheet"
+		href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap">
 	<title>Medium</title>
 </head>
 
@@ -15,5 +17,17 @@
 </html>
 
 <template id="content">
-	<div class="title"> </div>
+	<div class="content-container">
+		<span class="content-title"></span>
+		<div class="content-label-container">
+			<div class="content-label-icon">
+				<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="-1 -1 25 25">
+					<path stroke="currentColor"
+						d="M16 14c0 -0.7415 0.7331 -1.8496 1.4746 -2.7806 0.9545 -1.1987 2.0943 -2.24621 3.4016 -3.04562C21.8551 7.57519 23.0444 7 24 7c-0.9556 0 -2.1449 -0.57519 -3.1238 -1.17378 -1.3073 -0.79941 -2.4471 -1.84692 -3.4016 -3.0456C16.7331 1.8496 16 0.741517 16 0m8 7H12.5C5.87258 7 0.5 12.3726 0.5 19v5">
+					</path>
+				</svg>
+			</div>
+			<span class="content-label"></span>
+		</div>
+	</div>
 </template>

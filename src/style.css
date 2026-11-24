@@ -1,6 +1,12 @@
 :root {
 	--background-color: rgb(10, 10, 10);
 
+	--content-font-size: 160px;
+	--content-line-height: 180px;
+
+	--content-transition-duration: 500ms;
+	--content-transition-style: cubic-bezier(0.33, 1, 0.68, 1);
+
 	--tp-base-background-color: rgba(10, 10, 10, 0.2);
 	--tp-label-foreground-color: hsla(0, 0%, 100%, 0.6);
 	--tp-button-background-color: hsla(0, 0%, 75%, 0.2);
@@ -20,14 +26,106 @@ body {
 	touch-action: none;
 }
 
-.title {
-	font-size: 80px;
+.content-container {
+	--content-container-opacity: 80%;
 
-	opacity: 80%;
-	color: white;
+	display: flex;
+	flex-direction: column;
 
-	white-space: pre;
+	opacity: var(--content-container-opacity);
+
+	cursor: pointer;
+}
+
+.content-title {
+	--content-title-transform: calc(var(--content-line-height) * -0.5);
+
+	transform: translate(0px, var(--content-title-transform));
+
+	font-family: 'EB Garamond';
+	font-size: var(--content-font-size);
+	line-height: var(--content-line-height);
 	tab-size: 0;
+	white-space: pre;
+
+	color: white;
+}
+
+.content-label-container {
+	--content-label-container-transform: calc(var(--content-line-height) * 0.5);
+	--content-label-container-clip: rect(0% 100% 100% 0%);
+
+	position: fixed;
+	bottom: 0px;
+	transform: translate(0px, var(--content-label-container-transform));
+
+	display: flex;
+	align-items: flex-end;
+	gap: calc(var(--content-font-size) * 0.125);
+
+	clip-path: var(--content-label-container-clip);
+}
+
+.content-label-icon {
+	size: var(--content-font-size);
+	padding: calc(var(--content-font-size) * 0.125);
+
+	color: white;
+}
+
+.content-label-icon svg {
+	height: calc(var(--content-font-size) * 0.75);
+	width: calc(var(--content-font-size) * 0.75);
+	transform: scaleY(-1);
+
+	stroke-width: 2;
+}
+
+.content-label {
+	font-family: 'EB Garamond';
+	font-size: var(--content-font-size);
+	line-height: var(--content-line-height);
+	tab-size: 0;
+	white-space: nowrap;
+
+	color: white;
+}
+
+@media (hover: hover) and (pointer: fine) {
+	.content-container {
+		--content-container-opacity: 40%;
+
+		transition: opacity var(--content-transition-duration) var(--content-transition-style);
+	}
+
+	.content-container:hover {
+		--content-container-opacity: 80%;
+	}
+
+	.content-title {
+		--content-title-transform: 0px;
+
+		transition: transform var(--content-transition-duration) var(--content-transition-style);
+	}
+
+	.content-title:hover {
+		--content-title-transform: calc(var(--content-line-height) * -0.5);
+	}
+
+	.content-label-container {
+		--content-label-container-transform: 0px;
+		--content-label-container-clip: rect(100% 100% 100% 0%);
+
+		transition:
+			transform var(--content-transition-duration) var(--content-transition-style),
+			clip-path var(--content-transition-duration) var(--content-transition-style);
+	}
+
+	.content-container:hover .content-label-container {
+		--content-label-container-transform: calc(var(--content-line-height) * 0.5);
+		--content-label-container-clip: rect(0% 100% 100% 0%);
+	}
+
 }
 
 .background,

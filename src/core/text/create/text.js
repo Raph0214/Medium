@@ -16,10 +16,11 @@ function loadContent() {
 
 	for (const [index, content] of contentList.entries()) {
 		const element = template.content.firstElementChild.cloneNode(true);
-		element.textContent = content.title;
+		element.querySelector('.content-title').textContent = content.title.trim();
+		element.querySelector('.content-label').textContent = content.label.trim();
 
 		const object = new CSS3DObject(element);
-		object.scale.set(0.5, 0.5, 0.5);
+		object.scale.set(0.25, 0.25, 0.25);
 		global.scene.add(object);
 
 		global.animations[`content${index}`] = function () {
@@ -27,7 +28,7 @@ function loadContent() {
 			const end = global.end;
 			const offset = content.position;
 
-			const alpha = GLOBAL.scroll - offset.z + 1;
+			const alpha = GLOBAL.scroll - offset.z + 0.9;
 			const position = start.clone().lerp(end, alpha);
 			const x = (position.x / start.x) ** config.text.exponent * start.x;
 

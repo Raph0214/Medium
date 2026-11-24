@@ -5,10 +5,8 @@ import { config } from '../config';
 export function setupCamera() {
 	global.mouse = new THREE.Vector2(0, 0);
 
-	if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
-		responsive();
-		track();
-	}
+	responsive();
+	track();
 }
 
 function responsive() {
@@ -33,9 +31,19 @@ function responsive() {
 }
 
 function track() {
+	window.addEventListener('resize', () => {
+		if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+			const mouse = global.mouse;
+			mouse.x = 0;
+			mouse.y = 0;
+		}
+	});
+
 	window.addEventListener('pointermove', (event) => {
+		const hasMouse = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
 		const mouse = global.mouse;
-		mouse.x = event.clientX / window.innerWidth * 2 - 1;
-		mouse.y = event.clientY / window.innerHeight * 2 - 1;
+		mouse.x = hasMouse ? event.clientX / window.innerWidth * 2 - 1 : 0;
+		mouse.y = hasMouse ? event.clientY / window.innerHeight * 2 - 1 : 0;
 	});
 }

@@ -6,6 +6,9 @@ export const content = [
 		adipiscing elit quisque
 		faucibus ex sapien.
 		`,
+		label: `
+		In more detail
+		`,
 		body: `
 		Lorem ipsum dolor sit amet consectetur adipiscing elit.
 		In id cursus mi pretium tellus duis convallis.
@@ -27,7 +30,7 @@ export const content = [
 		`,
 		position: {
 			x: 0,
-			y: 100,
+			y: 0,
 			z: 0,
 		}
 	},
@@ -38,6 +41,9 @@ export const content = [
 		pretium tellus duis
 		convallis tempus.
 		`,
+		label: `
+		To elaborate
+		`,
 		body: `
 		Lorem ipsum dolor sit amet consectetur adipiscing elit.
 		In id cursus mi pretium tellus duis convallis.
@@ -58,9 +64,9 @@ export const content = [
 		Taciti sociosqu ad litora torquent per conubia nostra.
 		`,
 		position: {
-			x: -50,
-			y: 100,
-			z: 0.5,
+			x: 0,
+			y: 0,
+			z: 0.375,
 		}
 	},
 	{
@@ -70,6 +76,9 @@ export const content = [
 		vivamus fringilla lacus
 		nec metus bibendum.
 		`,
+		label: `
+		Furthermore
+		`,
 		body: `
 		Lorem ipsum dolor sit amet consectetur adipiscing elit.
 		In id cursus mi pretium tellus duis convallis.
@@ -90,9 +99,9 @@ export const content = [
 		Taciti sociosqu ad litora torquent per conubia nostra.
 		`,
 		position: {
-			x: 50,
-			y: -100,
-			z: 1,
+			x: 0,
+			y: 0,
+			z: 0.75,
 		}
 	},
 ];
