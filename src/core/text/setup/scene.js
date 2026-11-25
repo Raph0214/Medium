@@ -9,6 +9,7 @@ export function setupScene() {
 	global.camera = new THREE.PerspectiveCamera(config.camera.FOV);
 
 	global.renderer = new CSS3DRenderer({ antialias: true });
+	global.renderer.domElement.id = 'text';
 	global.renderer.domElement.classList.add('text');
 	document.body.appendChild(global.renderer.domElement);
 

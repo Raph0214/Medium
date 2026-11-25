@@ -6,6 +6,8 @@ import { config } from '../config';
 import { content } from '/src/assets/content';
 
 export function createText() {
+	GLOBAL.contentHeight = 0;
+
 	loadContent();
 
 	updatePosition();
@@ -45,7 +47,7 @@ function loadContent() {
 			const position = start.clone().lerp(end, alpha - content.gap * index);
 			const x = (position.x / start.x) ** config.text.exponent * start.x;
 
-			object.position.set(x, position.y, position.z);
+			object.position.set(x, position.y + GLOBAL.contentHeight, position.z);
 		};
 	}
 }

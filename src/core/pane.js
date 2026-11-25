@@ -3,4 +3,5 @@ import { global } from './global';
 
 export function pane() {
 	global.pane = new Pane({ title: 'Config' });
+	global.pane.hidden = true;
 }
