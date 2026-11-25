@@ -1,9 +1,13 @@
 export const content = {
 	start: {
-		scroll: 1.5,
-		offset: 0.9,
-		smoothing: 0.25,
+		scroll: 1.65,
+		smoothing: 1,
 	},
+	end: {
+		scroll: 2.75,
+		smoothing: 1,
+	},
+	offset: 0.8,
 	gap: 0.5,
 	list: [
 		{

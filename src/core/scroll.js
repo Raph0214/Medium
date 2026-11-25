@@ -16,6 +16,8 @@ export function scroll() {
 	animate();
 }
 
+const limits = config.limits;
+
 let prevTime = performance.now();
 function animate(time = 0) {
 	requestAnimationFrame(animate);
@@ -25,5 +27,5 @@ function animate(time = 0) {
 
 	global.velocity *= (1 - config.decay) ** delta;
 	global.scroll += global.velocity * config.speed * delta;
-	global.scroll = Math.max(global.scroll, 0);
+	global.scroll = Math.min(Math.max(global.scroll, limits.min), limits.max);
 }

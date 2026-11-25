@@ -22,6 +22,15 @@ function scroll(parent) {
 		min: 0,
 		max: 1,
 	});
+
+	limits(parent);
+}
+
+function limits(parent) {
+	const limits = parent.addFolder({ title: 'Limits' });
+
+	limits.addBinding(config.limits, 'min', { label: 'Min' });
+	limits.addBinding(config.limits, 'max', { label: 'Max' });
 }
 
 function values(parent) {

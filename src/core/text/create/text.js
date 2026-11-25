@@ -11,14 +11,22 @@ export function createText() {
 	updatePosition();
 }
 
+function smoothMin(a, b, k) {
+	const h = Math.max(k - Math.abs(a - b), 0) / k;
+	return Math.min(a, b) - h ** 2 * k * 0.25;
+}
+
 function smoothMax(a, b, k) {
 	const h = Math.max(k - Math.abs(a - b), 0) / k;
-	return Math.max(a, b) + h * h * k * 0.25;
+	return Math.max(a, b) + h ** 2 * k * 0.25;
 }
 
 function loadContent() {
 	const template = document.querySelector('#content');
 	const contentStart = content.start;
+	const contentEnd = content.end;
+	const startScroll = contentStart.scroll - contentStart.smoothing;
+	const endScroll = contentEnd.scroll - contentEnd.smoothing;
 
 	for (const [index, item] of content.list.entries()) {
 		const element = template.content.firstElementChild.cloneNode(true);
@@ -33,7 +41,7 @@ function loadContent() {
 			const start = global.start;
 			const end = global.end;
 
-			const alpha = smoothMax(GLOBAL.scroll - contentStart.scroll, 0, contentStart.smoothing) + contentStart.offset;
+			const alpha = smoothMin(smoothMax(GLOBAL.scroll - startScroll, 0, contentStart.smoothing), endScroll - startScroll, contentEnd.smoothing) + content.offset;
 			const position = start.clone().lerp(end, alpha - content.gap * index);
 			const x = (position.x / start.x) ** config.text.exponent * start.x;
 

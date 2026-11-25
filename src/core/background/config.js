@@ -33,7 +33,7 @@ export const config = {
 				g: 82,
 				b: 82,
 			},
-			min: 0.7,
+			min: 0.65,
 			max: 0.8,
 		},
 		secondary: {
@@ -43,10 +43,10 @@ export const config = {
 				b: 179,
 			},
 			min: 0.7,
-			max: 0.8,
+			max: 0.85,
 			responsive: {
 				speed: 0.4,
-				amount: 0.0875,
+				amount: 0.075,
 			}
 		},
 	},

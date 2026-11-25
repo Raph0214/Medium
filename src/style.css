@@ -1,5 +1,8 @@
 :root {
+	--font-family: 'EB Garamond';
+
 	--background-color: rgb(10, 10, 10);
+	--text-color: white;
 
 	--content-font-size: 160px;
 	--content-line-height: 180px;
@@ -42,13 +45,13 @@ body {
 
 	transform: translate(0px, var(--content-title-transform));
 
-	font-family: 'EB Garamond';
+	font-family: var(--font-family);
 	font-size: var(--content-font-size);
 	line-height: var(--content-line-height);
 	tab-size: 0;
 	white-space: pre;
 
-	color: white;
+	color: var(--text-color);
 }
 
 .content-label-container {
@@ -70,7 +73,7 @@ body {
 	size: var(--content-font-size);
 	padding: calc(var(--content-font-size) * 0.125);
 
-	color: white;
+	color: var(--text-color);
 }
 
 .content-label-icon svg {
@@ -82,13 +85,13 @@ body {
 }
 
 .content-label {
-	font-family: 'EB Garamond';
+	font-family: var(--font-family);
 	font-size: var(--content-font-size);
 	line-height: var(--content-line-height);
 	tab-size: 0;
 	white-space: nowrap;
 
-	color: white;
+	color: var(--text-color);
 }
 
 @media (hover: hover) and (pointer: fine) {

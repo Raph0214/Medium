@@ -178,12 +178,12 @@ function secondary(parent) {
 		global.material.uniforms.uSecondaryColor.value.set(`rgb(${Math.round(value.r)}, ${Math.round(value.g)}, ${Math.round(value.b)})`);
 	});
 
-	const primaryMin = secondary.addBinding(config.color.secondary, 'min', {
+	const secondaryMin = secondary.addBinding(config.color.secondary, 'min', {
 		label: 'Min',
 		min: 0,
 		max: config.color.secondary.max,
 	});
-	const primaryMax = secondary.addBinding(config.color.secondary, 'max', {
+	const secondaryMax = secondary.addBinding(config.color.secondary, 'max', {
 		label: 'Max',
 		min: config.color.secondary.min,
 		max: 1,
@@ -203,12 +203,10 @@ function secondary(parent) {
 		max: config.color.secondary.max - config.color.secondary.min,
 	});
 
-	primaryMin.on('change', (ev) => {
+	secondaryMin.on('change', (ev) => {
 		const value = ev.value;
 
-		primaryMax.min = value;
-		primaryMax.value = Math.max(primaryMax.value, value);
-
+		secondaryMax.min = value;
 		global.material.uniforms.uSecondaryMin.value = value;
 
 		const range = config.color.secondary.max - value;
@@ -217,12 +215,10 @@ function secondary(parent) {
 
 		amount.refresh();
 	});
-	primaryMax.on('change', (ev) => {
+	secondaryMax.on('change', (ev) => {
 		const value = ev.value;
 
-		primaryMin.max = value;
-		primaryMin.value = Math.min(primaryMin.value, value);
-
+		secondaryMin.max = value;
 		global.material.uniforms.uSecondaryMax.value = value;
 
 		const range = value - config.color.secondary.min;
