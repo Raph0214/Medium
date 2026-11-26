@@ -1,9 +1,6 @@
 import { global } from "./global";
 
-let text = document.getElementById('text');
 export function intro() {
-	text = document.getElementById('text');
-
 	animate();
 }
 
@@ -41,7 +38,7 @@ function animate() {
 	if ((scroll == 0 & prevScroll == 0) | (scroll > range & prevScroll > range) | scroll == prevScroll) return;
 	prevScroll = scroll;
 
-	const alpha = Math.min(scroll, range) / range;
+	const alpha = Math.min(scroll / range, 1);
 	const fast = Math.min(alpha / backgroundRange, 1) ** backgroundExponent;
 	const slow = alpha ** backgroundExponent;
 
@@ -61,7 +58,7 @@ function animate() {
 	title.style.opacity = opacity;
 	guide.style.opacity = opacity * 0.4;
 	disclaimer.style.opacity = opacity * 0.4;
-	text.style.opacity = Math.min(Math.max(alpha - textOffset, 0) / textRange, 1) ** textExponent;
 
+	global.text.style.opacity = (Math.max(alpha - textOffset, 0) / textRange) ** textExponent;
 	global.contentHeight = contentHeight * (1 - alpha) ** contentExponent;
 }

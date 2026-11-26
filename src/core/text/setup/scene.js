@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { CSS3DRenderer } from 'three/addons/renderers/CSS3DRenderer.js';
+import { global as GLOBAL } from '../../global';
 import { global } from '../global';
 import { config } from '../config';
 import { updatePosition } from '../create/text';
@@ -9,9 +10,9 @@ export function setupScene() {
 	global.camera = new THREE.PerspectiveCamera(config.camera.FOV);
 
 	global.renderer = new CSS3DRenderer({ antialias: true });
-	global.renderer.domElement.id = 'text';
 	global.renderer.domElement.classList.add('text');
 	document.body.appendChild(global.renderer.domElement);
+	GLOBAL.text = global.renderer.domElement;
 
 	resize();
 	animate();

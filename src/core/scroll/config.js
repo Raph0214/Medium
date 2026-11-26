@@ -3,6 +3,6 @@ export const config = {
 	decay: 0.9,
 	limits: {
 		min: 0,
-		max: 3.5,
+		max: 3,
 	},
 };
