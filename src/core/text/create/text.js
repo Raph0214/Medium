@@ -4,6 +4,7 @@ import { global as GLOBAL } from '../../global';
 import { global } from '../global';
 import { config } from '../config';
 import { content } from '/src/assets/content';
+import { setupBody } from './body';
 
 export function createText() {
 	GLOBAL.contentHeight = 0;
@@ -49,6 +50,8 @@ function loadContent() {
 
 			object.position.set(x, position.y + GLOBAL.contentHeight, position.z);
 		};
+
+		setupBody(element, item.body.trim());
 	}
 }
 

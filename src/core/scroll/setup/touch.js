@@ -14,7 +14,7 @@ export function setupTouch() {
 	});
 
 	window.addEventListener('pointermove', (event) => {
-		if (!touching) return;
+		if (!touching | !global.scrollEnabled) return;
 
 		const y = event.clientY;
 		last = last ? last : y;

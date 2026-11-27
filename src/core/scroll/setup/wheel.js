@@ -2,6 +2,8 @@ import { global } from '../../global';
 
 export function setupWheel() {
 	window.addEventListener('wheel', (event) => {
+		if (!global.scrollEnabled) return;
+
 		const mode = event.deltaMode;
 		const height = window.innerHeight;
 		let delta = event.deltaY;

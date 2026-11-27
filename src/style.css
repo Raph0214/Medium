@@ -3,16 +3,19 @@
 	--font-sans-serif: 'Montserrat';
 
 	--background-color: rgb(10, 10, 10);
+	--background-blur: 10px;
 	--text-color: white;
-
+	--body-color: rgb(224, 82, 82);
 	--content-font-size: 160px;
 	--content-line-height: 180px;
 
-	--start-title-font-size: min(25dvw, var(--content-font-size));
+	--start-title-font-size: min(25vw, var(--content-font-size));
 	--start-label-font-size: calc(var(--start-title-font-size) * 0.2);
 	--start-guide-font-size: calc(var(--start-title-font-size) * 0.1);
 
 	--end-font-size: calc(var(--start-title-font-size) * 0.4);
+
+	--body-font-size: min(8vw, calc(var(--content-font-size)* 0.4));
 
 	--content-transition-duration: 500ms;
 	--content-transition-style: cubic-bezier(0.33, 1, 0.68, 1);
@@ -25,8 +28,6 @@
 	--tp-button-background-color-hover: hsla(0, 0%, 100%, 0.4);
 	--tp-button-foreground-color: hsla(0, 0%, 100%, 0.6);
 	--tp-input-foreground-color: hsla(0, 0%, 100%, 0.6);
-
-	user-select: none;
 }
 
 body {
@@ -57,8 +58,8 @@ body {
 	height: 100%;
 	width: 100%;
 
-	background-color: var(--background-color);
-	opacity: 95%;
+	background-color: rgb(from var(--background-color) r g b / 75%);
+	backdrop-filter: blur(var(--background-blur));
 }
 
 .start-title-container {
@@ -137,8 +138,8 @@ body {
 	width: 100dvw;
 	padding: calc(var(--end-font-size) * 1.5) var(--end-font-size);
 
-	background-color: var(--background-color);
-	opacity: 95%;
+	background-color: rgb(from var(--background-color) r g b / 75%);
+	backdrop-filter: blur(var(--background-blur));
 
 	pointer-events: none;
 }
@@ -222,6 +223,78 @@ body {
 	color: var(--text-color);
 }
 
+.body-container {
+	position: fixed;
+	transform: translate(0%, 100%);
+	z-index: 10;
+
+	display: flex;
+	height: 100dvh;
+	width: 100dvw;
+
+	overflow-y: auto;
+	transition:
+		transform var(--content-transition-duration) ease-in-out,
+		backdrop-filter var(--content-transition-duration) ease-in-out;
+
+	scrollbar-width: none;
+	-ms-overflow-style: none;
+}
+
+.body-container::-webkit-scrollbar {
+	display: none;
+}
+
+.body-background {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	width: 100%;
+	height: fit-content;
+	margin: min(25vw, 25vh) 2%;
+	padding: 2%;
+
+	background-color: rgba(from var(--text-color) r g b / 75%);
+	backdrop-filter: blur(var(--background-blur));
+	border-radius: max(1vw, 1vh);
+}
+
+.body-close {
+	align-self: flex-end;
+	position: sticky;
+	top: 2%;
+	right: 0px;
+
+	width: calc(var(--start-label-font-size) * 4);
+	height: calc(var(--start-label-font-size) * 2);
+	padding: 0px;
+
+	font-family: var(--font-sans-serif), sans-serif;
+	font-weight: 400;
+	font-size: calc(var(--start-label-font-size) * 0.7);
+
+	color: var(--text-color);
+	background-color: var(--body-color);
+	border: 0px;
+	border-radius: 9999px;
+
+	cursor: pointer;
+	pointer-events: all;
+}
+
+.body-text {
+	width: 100%;
+	padding: 5% 10% 15% 10%;
+
+	font-family: var(--font-serif), serif;
+	font-weight: 400;
+	font-size: var(--body-font-size);
+	white-space: pre-line;
+
+	color: var(--body-color);
+}
+
 @media (hover: hover) and (pointer: fine) {
 	.content-container {
 		--content-container-opacity: 40%;
@@ -259,6 +332,11 @@ body {
 
 }
 
+* {
+	box-sizing: border-box;
+
+	user-select: none;
+}
 
 .text {
 	position: fixed;

@@ -5,6 +5,7 @@ import { setupTouch } from './scroll/setup/touch';
 import { setupWheel } from './scroll/setup/wheel';
 
 export function scroll() {
+	global.scrollEnabled = true;
 	global.velocity = 0;
 	global.scroll = 0;
 

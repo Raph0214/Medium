@@ -35,6 +35,10 @@ function animate() {
 
 	const scroll = global.scroll;
 
+	if (scroll < range) {
+		global.text.hidden = scroll < (textOffset * textRange);
+	}
+
 	if ((scroll == 0 & prevScroll == 0) | (scroll > range & prevScroll > range) | scroll == prevScroll) return;
 	prevScroll = scroll;
 
